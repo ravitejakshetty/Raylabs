@@ -17,10 +17,10 @@
 }
 
 body {
-	background-color:white;
+	background-color: white;
 	padding-top: 0px;
 	padding-bottom: 0px;
-	padding-right:0px;
+	padding-right: 0px;
 	padding-left: 0px;
 }
 
@@ -29,12 +29,31 @@ body {
 	font-weight: bold;
 	font-size: 200%;
 	padding-left: 40%;
-	padding-right:45%;
+	padding-right: 45%;
 	float: right;
-	
 }
 
-.usrHdr{
+.usrHdr {
 	text-align: right;
 	float: right;
+}
+
+.cPanel {
+	border-style: solid;
+}
+
+.sPanel {
+	border-style: 1px;
+}
+
+.mPanel {
+	border: 1px;
+}
+
+.p1 {
+	border: 1px solid black;
+}
+
+.p2 {
+	border: 1px solid black;
 }
