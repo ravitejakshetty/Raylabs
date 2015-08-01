@@ -20,11 +20,12 @@
 										<h:panelGroup>
 											<h:panelGroup>
 												<h:outputText value="Applications" />
-												<hr/>
+												<hr />
 											</h:panelGroup>
 											<h:panelGroup>
 												<h:form>
-													<h:commandLink action="user.xhtml?faces-redirect=true" value="Home Page"></h:commandLink>
+													<h:commandLink action="user.xhtml?faces-redirect=true"
+														value="Home Page"></h:commandLink>
 												</h:form>
 											</h:panelGroup>
 
@@ -37,18 +38,26 @@
 					<td width="90%" height="100%">
 						<table align="left">
 							<tr>
-								<td><h:panelGrid columns="2" bgcolor="grey" border="1">
-										<h:outputText value="User Id :"></h:outputText>
-										<h:outputText value="#{activeUser.userId}"></h:outputText>
-										<h:outputText value="First Name :"></h:outputText>
-										<h:outputText value="#{activeUser.firstName}"></h:outputText>
-										<h:outputText value="Last Name :"></h:outputText>
-										<h:outputText value="#{activeUser.lastName}"></h:outputText>
-										<h:outputText value="Password :"></h:outputText>
-										<h:outputText value="#{activeUser.password}"></h:outputText>
-										<h:outputText value="Country :"></h:outputText>
-										<h:outputText value="#{activeUser.country}"></h:outputText>
-									</h:panelGrid></td>
+								<h:form>
+									<td><h:dataTable value="#{userTasks.tasks}" var="t" border="1">
+											<h:column>
+												<f:facet name="header">Task Id</f:facet>
+								#{t.taskId}
+								</h:column>
+											<h:column>
+												<f:facet name="header">Task Title</f:facet>
+								#{t.taskTitle}
+										</h:column>
+											<h:column>
+												<f:facet name="header">Due Date</f:facet>
+								#{t.dueDate}
+										</h:column>
+											<h:column>
+												<f:facet name="header">Created Date</f:facet>
+								#{t.createdDate}
+										</h:column>
+										</h:dataTable></td>
+								</h:form>
 							</tr>
 						</table>
 					</td>
