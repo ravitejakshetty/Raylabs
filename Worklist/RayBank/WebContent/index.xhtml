@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>RAYBANK INDEX</title>
+
+</h:head>
+<body>
+	<ui:composition template="templates/template.xhtml">
+		<ui:define name="content">
+			<h:form>
+				<h:panelGroup
+					rendered="#{user.validationComplete and (!user.isUserNameValid or !user.isPasswordValid or !user.isPasswordValidOne)}">
+					<h:panelGrid rows="3">
+						<h:outputText value="Username is a Required Field"
+							rendered="#{!user.isUserNameValid}" style="color:red" />
+						<h:outputText value="Password is a Required Field"
+							rendered="#{!user.isPasswordValid}" style="color:red" />
+						<h:outputText value="Incorrect Password"
+							rendered="#{!user.isPasswordValidOne}" style="color:red" />
+					</h:panelGrid>
+				</h:panelGroup>
+				<h:panelGroup
+					rendered="#{user.validationComplete and (user.isUserNameValid and user.isPasswordValid and user.isPasswordValidOne)}">
+					<h:outputText value="Username and Password are valid"
+						style="color:green" />
+				</h:panelGroup>
+
+				<table>
+					<tr>
+						<td><h:outputText value="Enter Username: " /></td>
+						<td><h:inputText id="username" value="#{user.userName}" /></td>
+					</tr>
+					<tr>
+						<td><h:outputText value="Enter Password: " /></td>
+						<td><h:inputSecret id="password" value="#{user.password}" />
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><h:commandButton value="Login" action="#{user.login}" /></td>
+					</tr>
+				</table>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

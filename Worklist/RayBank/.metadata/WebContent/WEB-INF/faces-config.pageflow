@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14382413248290" configfile="/RayBank/WebContent/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" id="pf14382414236211" referenceLink="//@navigationRule.0/@navigationCase.1/@toViewId|" outlinks="pf14382414236212 pf14382414679975" inlinks="pf14382414679975" path="index.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="user.xhtml" id="pf14382414236213" referenceLink="//@navigationRule.0/@navigationCase.1/@toViewId|" inlinks="pf14382414236212" path="user.xhtml"/>
+  <links id="pf14382414236212" target="pf14382414236213" source="pf14382414236211" outcome="pass" fromaction="#{user.login}"/>
+  <links id="pf14382414679975" target="pf14382414236211" source="pf14382414236211" outcome="fail" fromaction="#{user.login}"/>
+</pageflow:Pageflow>

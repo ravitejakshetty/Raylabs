@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Insert title here</title>
+</head>
+<body>
+	<ui:composition>
+		<h:outputStylesheet library="css" name="styles.css" />
+		<h:panelGrid columns="2">
+			<h:panelGroup styleClass="hdr">
+				<h:outputText value="RAYBANK" />
+			</h:panelGroup>
+			<h:panelGroup rendered="#{activeUser.authenticated}"
+				styleClass="usrHdr">
+				<h:panelGrid columns="5">
+					<h:outputText value="User :" />
+					<h:outputText value="#{activeUser.firstName}" />
+					<h:outputText value=" " />
+					<h:outputText value="#{activeUser.lastName}" />
+					<h:form>
+						<h:commandButton action="#{activeUser.logout}" value="Logout" />
+					</h:form>
+				</h:panelGrid>
+			</h:panelGroup>
+		</h:panelGrid>
+	</ui:composition>
+</body>
+</html>
