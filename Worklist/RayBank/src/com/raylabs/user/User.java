@@ -6,7 +6,9 @@ import java.sql.ResultSet;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 import com.raylabs.data.ConnectionBean;
 
@@ -18,6 +20,7 @@ public class User {
 	private String firstName;
 	private String lastName;
 	private boolean authenticated;
+	private int sessionTimeout=300;
 
 	public String getUserId() {
 		return userId;
@@ -44,6 +47,7 @@ public class User {
 	}
 
 	public void getDetails() throws Exception {
+			
 		authenticated = true;
 		Connection conn = ConnectionBean.getConnection();
 		String sql = "select first_name, last_name from users where user_name=?";
@@ -55,6 +59,12 @@ public class User {
 			this.lastName = rs.getString("last_name");
 		}
 		rs.close();
+		
+		
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		HttpSession session = (HttpSession)externalContext.getSession(false);
+		session.setMaxInactiveInterval(sessionTimeout);
 	}
 
 	public boolean getAuthenticated() {
