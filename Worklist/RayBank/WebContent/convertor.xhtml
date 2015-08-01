@@ -20,12 +20,12 @@
 										<h:panelGroup>
 											<h:panelGroup>
 												<h:outputText value="Applications" />
-												<hr/>
+												<hr />
 											</h:panelGroup>
 											<h:panelGroup>
 												<h:form>
-													<h:commandLink action="userTask?faces-redirect=true" value="Worklist"></h:commandLink><br/>
-													<h:commandLink action="convertor?faces-redirect=true" value="Convertor"></h:commandLink>
+													<h:commandLink action="user.xhtml?faces-redirect=true"
+														value="Home Page"></h:commandLink>
 												</h:form>
 											</h:panelGroup>
 
@@ -38,18 +38,17 @@
 					<td width="90%" height="100%">
 						<table align="left">
 							<tr>
-								<td><h:panelGrid columns="2" bgcolor="grey" border="1">
-										<h:outputText value="User Id :"></h:outputText>
-										<h:outputText value="#{activeUser.userId}"></h:outputText>
-										<h:outputText value="First Name :"></h:outputText>
-										<h:outputText value="#{activeUser.firstName}"></h:outputText>
-										<h:outputText value="Last Name :"></h:outputText>
-										<h:outputText value="#{activeUser.lastName}"></h:outputText>
-										<h:outputText value="Password :"></h:outputText>
-										<h:outputText value="#{activeUser.password}"></h:outputText>
-										<h:outputText value="Country :"></h:outputText>
-										<h:outputText value="#{activeUser.country}"></h:outputText>
-									</h:panelGrid></td>
+								<h:form>
+									<h:panelGrid columns="2">
+
+										<h:outputText value="Currency in Dollar"></h:outputText>
+										<h:inputText value="#{convertor.dollar}"></h:inputText>
+										<h:outputText value="Currency in Rupees"></h:outputText>
+										<h:outputText value="#{convertor.rupee}"></h:outputText>
+										<h:commandButton action="#{convertor.show}" value="Convert" />
+
+									</h:panelGrid>
+								</h:form>
 							</tr>
 						</table>
 					</td>
