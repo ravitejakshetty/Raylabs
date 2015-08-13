@@ -1,0 +1,49 @@
+what is OBPM 
+Oracle BPM is short Oracle Business Process Management, a powerful set of tools for creating, executing, and optimizing business processes that can great improve efficiency, data sharing, and customer service for your company.
+
+
+Why?
+
+1. The suite enables unparalleled collaboration between business and IT to automate and optimize business processes.
+2. Today's businesses operate in a rapidly changing climate that demands an unprecedented level of adaptation and innovation. These conditions place equally unprecedented burdens on IT departments, which must now deliver solutions in months rather than years. And those solutions must themselves be flexible enough to support continuous adaptation to an ever-evolving, ever-expanding marketplace.
+3.Today’s organizations face increasing business pressures due to globalization, changing competitors, stricter regulations, faster pace of
+innovation, and demand for better customer service.
+
+4. Trends such as mobile, social, cloud, and analytics have a profound impact on a company’s business and its core business processes. Companies expect business driven rapid
+process automation, seamless collaboration among all stakeholders, deep
+insights for better busness decisions, unprecedented agility and operational
+excellence.
+
+How ?
+Modelling tools 
+
+Process composer : Primary designed for Business analyst and Process experts
+				   A Web based tool
+				   Create , Import and Modify(limited) BPM processes.
+				   After creation of Process , publish it to the Repository, where IT developer can pick it and take over the development activity.
+
+
+BPM studio :A Jdeveloper Addon.
+			Complete development features like  Code, compile and packaging 
+			Primarily targeted on IT developer.
+			One stop for all  OBPM development.
+			
+			
+Weblogic Server : A runtime platform for the BPM process.
+				  An excellent Enterprise application server.
+				  Excellent load balancing and load handling.
+				  
+Enterprise manager :Web application to Administrators to monitor and control all BPM processes.
+					View each instance details and current state of all BPM process.
+					
+					
+BPM workspace : A web application to end users to act on task assigned via BPM process.
+				Any task assiged to logged in user appears on his bpm workspace task list.
+				Admin can also use to create, update and delete process roles etc.
+				
+BAM :View realtime metrics derived from the running bpm processes.
+	Metrics has to be configured during design time.
+	Metrics are used to modify the business process.	
+				
+					
+					
