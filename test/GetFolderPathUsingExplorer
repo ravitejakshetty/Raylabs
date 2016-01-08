@@ -1,80 +1,69 @@
-Option Explicit
+'set the type of dialog box you want to use
+'1 = Open
+'2 = SaveAs
+'3 = File Picker
+'4 = Folder Picker
+Const msoFileDialogOpen = 1
 
-' Flags for the options parameter
-Const BIF_returnonlyfsdirs   = &H0001
-Const BIF_dontgobelowdomain  = &H0002
-Const BIF_statustext         = &H0004
-Const BIF_returnfsancestors  = &H0008
-Const BIF_editbox            = &H0010
-Const BIF_validate           = &H0020
-Const BIF_browseforcomputer  = &H1000
-Const BIF_browseforprinter   = &H2000
-Const BIF_browseincludefiles = &H4000
+Set fso = CreateObject("Scripting.FileSystemObject")
+Set objWord = CreateObject("Word.Application")
+Set WshShell = CreateObject("WScript.Shell")
 
-Dim file
+'where you want to start looking for files
+'You could use a string like "C:\Somefolder\Somefolder\"
+'I chose to use the desktop folder of whoever was running the script.  On Windows 7 it's "C:\Users\Username\Desktop\"
+'Run "set" from a command prompt to see the available environment variables
+strInitialPath = WshShell.ExpandEnvironmentStrings("%USERPROFILE%") & "\Desktop\"
 
-file = BrowseForFolder( _
-        "Select a file or folder to copy", _
-        BIF_returnonlyfsdirs + BIF_browseincludefiles, _
-        "")
-If file = "-5" Then 
-    WScript.Echo "Not possible to select files in root folder"
-Else
-    If file = "-1" Then 
-        WScript.Echo "No object selected; Cancel clicked"
-    Else
-        WScript.Echo "Object: ", file
-    End If
-End If 
+'set the dialog box to open at the desired folder
+objWord.ChangeFileOpenDirectory(strInitialPath)
 
-' Using the shell's BrowseForFolder method to
-' return the full path to the selected object
-' title = Text shown in the dialog box
-' flag = One of the values for controlling the 
-'        BrowseForFolder behavior
-' dir = Preselected directory (can be "")
-Function BrowseForFolder(title, flag, dir)
-    On Error Resume Next
+With objWord.FileDialog(msoFileDialogOpen)
+   'set the window title to whatever you want
+   .Title = "Select the file to process"
+   'I changed this to false because I'm working with one file at a time
+   .AllowMultiSelect = False
+   'Get rid of any existing filters
+   .Filters.Clear
+   'Show only the desired file types
+   'for each desired group of file types, add a "Filters.Add" line with a different description and desired extensions
+   'the dialog box will open using whichever filter is first
+   'you can switch to a different filter from a drop-down list on the dialog box
+   .Filters.Add "All Files", "*.*"
+   .Filters.Add "Excel Files", "*.xls;*.xlsx"
+   .Filters.Add "Text Files", "*.txt"
+   .Filters.Add "Various Files", "*.xls;*.doc;*.vbs"
+         
+   '-1 = Open the file
+   ' 0 = Cancel the dialog box
+   '-2 = Close the dialog box
+   'If objWord.FileDialog(msoFileDialogOpen).Show = -1 Then  'long form
+   If .Show = -1 Then  'short form
+      'Set how you want the dialog window to appear
+      'it doesn't appear to do anything so it's commented out for now
+      '0 = Normal
+      '1 = Maximize
+      '2 = Minimize
+      'objWord.WindowState = 2
 
-    Dim oShell, oItem, tmp
- 
-    ' Create WshShell object.
-    Set oShell = WScript.CreateObject("Shell.Application")
+      'the Word dialog must be a collection object
+      'even though I'm using one file, I had to use a For/Next loop
+      '"File" returns a string containing the full path of the selected file
+     
+      'For Each File in objWord.FileDialog(msoFileDialogOpen).SelectedItems  'long form
+      For Each File in .SelectedItems  'short form
+         'Change the Word dialog object to a file object for easier manipulation
+         Set objFile = fso.GetFile(File)
+         'Display the full path to the file
+         WScript.Echo objFile.Path
+         'Display the path to the folder that the file is in
+         WScript.Echo objFile.ParentFolder
+         'Display just the name of the file
+         WScript.Echo objFile.Name
+      Next    
+   Else 
+   End If
+End With
 
-    ' Invoke Browse For Folder dialog box.
-    Set oItem = oShell.BrowseForFolder(&H0, title, flag, dir)
-    If Err.Number <> 0 Then
-        If Err.Number = 5 Then
-            BrowseForFolder= "-5"
-            Err.Clear
-            Set oShell = Nothing
-            Set oItem = Nothing
-            Exit Function
-        End If
-    End If
-
-    ' Now we try to retrieve the full path.
-    BrowseForFolder = oItem.ParentFolder.ParseName(oItem.Title).Path
-
-    ' Handling: Cancel button and selecting a drive
-    If Err<> 0 Then
-        If Err.Number = 424 Then           ' Handle Cancel button.
-            BrowseForFolder = "-1"
-        Else
-            Err.Clear
-            ' Handle situation in which user selects a drive.
-            ' Extract drive letter from the title--first search
-            ' for a colon (:).
-            tmp = InStr(1, oItem.Title, ":")
-            If tmp > 0 Then           ' A : is found; use two 
-                                      ' characters and add \.
-                BrowseForFolder = _   
-                    Mid(oItem.Title, (tmp - 1), 2) & "\"
-            End If
-        End If
-    End If
-
-    Set oShell = Nothing
-    Set oItem = Nothing
-    On Error GoTo 0
-End Function
+'Close Word
+objWord.Quit
