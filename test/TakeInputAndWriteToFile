@@ -1,0 +1,8 @@
+Const ForReading = 1, ForWriting = 2, ForAppending = 8, CreateIfNeeded = true
+set fso = CreateObject("Scripting.FileSystemObject")
+set file = fso.OpenTextFile("output.txt", ForWriting, CreateIfNeeded)
+
+dim fname 
+fname = inputbox("Hi! What's your name?")
+file.write fname
+file.close
