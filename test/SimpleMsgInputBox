@@ -1,0 +1,3 @@
+Dim Input
+Input = InputBox("Enter your name") 
+MsgBox ("You entered: " & Input)
